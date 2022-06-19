@@ -1,0 +1,36 @@
+<article>
+    <a href="/dashboard"> &larr; Back To Dashboard</a>
+    <h2>
+        Edit Post
+    </h2>
+
+    <form class="edit-post-form" id="edit-post-form">
+        <div>
+            <p>Post Title</p><input name="post-title" type="text" value="{{post.title}}">
+        </div>
+
+        <div>
+            <p>Post Body:</p><input name="post-body" type="text" value="{{post.body}}">
+        </div>
+
+        <div>
+            <button type="submit" class="btn">Save Post</button>
+            <button type="button" class="btn" id="delete-btn">Delete Post</button>
+        </div>
+    </form>
+</article>
+
+{{> comments post.comments}}
+
+<form class="comment-form" id="new-comment-form">
+    <div>
+        <textarea name="comment-body" class="form-textarea"></textarea>
+    </div>
+
+    <div>
+        <button type="submit" class="btn">Add Comment</button>
+    </div>
+</form>
+
+<script src="/js/edit.js"></script>
+<script src="/js/comment.js"></script>
