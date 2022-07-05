@@ -12,10 +12,10 @@ const loginFormHandler = async function (event) {
     }),
     headers: { "Content-Type": "application/json" },
   });
-
+  console.log("Response")
   if (response.ok) {
-    document.location.replace("/dashboard");
-    console.log(usernameEl.value);
+    document.location.replace("/");
+
   } else {
     alert("Failed to login");
   }

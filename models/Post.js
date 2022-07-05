@@ -1,4 +1,5 @@
-const { Model, Datatypes } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
+// const { toDefaultValue } = require("sequelize/types/lib/utils");
 const sequelize = require("../config/config");
 
 class Post extends Model {}
@@ -6,30 +7,38 @@ class Post extends Model {}
 Post.init (
     {
         id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
         title: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         body: {
-            type: Datatypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         user_id: {
-            type: Datatypes.INTERGER,
+            type: DataTypes.INTEGER,
             references: {
                 model: "user",
                 key: "id",
             },
         },
+        date_created: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            toDefaultValue: DataTypes.NOW,
+        }, 
     },
     {
         sequelize,
+        timestamps: false,
         freezeTableName: true,
+        underscored: true,
+        modelName: "post",
     }
 );
 

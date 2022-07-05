@@ -1,28 +1,31 @@
-const { Model, Datatypes } = require("sequelize");
-const sequelize = require("../config/config");
+const Sequelize = require("sequelize");
+const databaseConnection = require('../config/sequelizeConnection');
 const bcrypt = require("bcrypt");
-const { beforeCreate, beforeUpdate } = require("../config/config");
 
-class User extends Model {
-    checkPassword(loginPw) {
-        return bcrypt.compare(loginPw, this.password);
-    }
-}
-
-User.init (
-    {
+const User = databaseConnection.define('user', {
         id: {
-            type: Datatypes.INTEGER,
+            type: Sequelize.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
         username: {
-            type: Datatypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
+            validate: {
+                len: [4],
+            },
+        },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            },
         },
         password: {
-            type: Datatypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
             validate: {
                 len: [4],
@@ -31,25 +34,16 @@ User.init (
     },
 
     {
-        hook: {
-            async beforeCreate(newUserData) {
-                newUserData.password = await bcrypt.hash(newUserData.password, 10);
-                return newUserData;
-            },
-            async beforeUpdate(updatedUserData) {
-                updatedUserData.password = await bcrypt.hash (
-                    updatedUserData.password,
-                    10
-                );
-                return updatedUserData;
-            },
-        },
-        sequelize,
+        sequelize: databaseConnection,
         timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: "user",
     }
 );
+
+User.beforeCreate(async user => {
+    user.password = await bcrypt.hash(user.password, 10);
+});
 
 module.exports = User;

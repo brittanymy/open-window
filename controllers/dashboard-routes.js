@@ -3,6 +3,7 @@ const { Post, Comment, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
+  console.log("GET Dashboard")
   try {
     const postData = await Post.findAll({
       where: {
@@ -22,18 +23,29 @@ router.get('/', withAuth, async (req, res) => {
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
-
+    console.log("get dashboard",posts)
     res.render("all-posts-admin", {
       layout: 'dashboard',
       posts,
       loggedIn: req.session.loggedIn,
+      username:req.session.username
     });
   } catch (err) {
-    res.redirect('login');
+    console.log(err,"Err - dashboard")
+    res.redirect("login")
   }
+})
+
+router.get("/",(req,res) => {
+    res.render('all-posts-admin',{
+      layout:'dashboard',
+      loggedIn:req.session.loggedIn,
+      username:req.session.username
+    });
+  
 });
 
-router.get('/new', withAuth, (req, res) => {
+router.get('/new',  (req, res) => {
   res.render("new-post", {
     layout: 'dashboard',
     loggedIn: req.session.loggedIn,
