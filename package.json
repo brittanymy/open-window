@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "build": "react-scripts build",
     "watch": "nodemon server.js",
     "seeds": "node seeds/index.js",
     "predeploy": "npm run build",
@@ -20,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/coding-boot-camp/module-14-project-mvc/issues"
   },
-  "homepage": "https://brittanymy.github.io/bright-locket/",
+  "homepage": "https://brittanymy.github.io/open-window/",
   "dependencies": {
     "bcrypt": "^4.0.1",
     "connect-session-sequelize": "^6.1.1",
