@@ -14,6 +14,7 @@ const loginFormHandler = async function(event) {
   });
 
   if (response.ok) {
+    console.log('About to load dashboard');
     document.location.replace('/dashboard');
   } else {
     

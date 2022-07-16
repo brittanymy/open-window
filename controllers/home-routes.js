@@ -4,7 +4,7 @@ const { Post, Comment, User } = require('../models');
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
-      attributes: ["id", "title", "body", "createdAt"],
+      attributes: ["id", "title", "body", "date_created"],
       include: [
         {
           model: Comment,
@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
+    console.log(posts)
 
     res.render("all-posts", { posts, loggedIn: req.session.loggedIn });
   } catch (err) {

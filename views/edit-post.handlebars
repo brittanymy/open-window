@@ -20,7 +20,9 @@
     </form>
 </article>
 
-{{> comments post.comments}}
+{{#each posts.comments as |comment|}}
+<p>{{comment}}</p>
+{{/each}}
 
 <form class="comment-form" id="new-comment-form">
     <div>

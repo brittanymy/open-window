@@ -9,7 +9,7 @@ router.get('/', withAuth, async (req, res) => {
       where: {
         user_id: req.session.user_id,
       },
-      attributes: ["id", "title", "body", "user_id", "createdAt"],
+      attributes: ["id", "title", "body", "user_id", "date_created"],
       include: [
         {
           model: Comment,
@@ -36,7 +36,7 @@ router.get('/', withAuth, async (req, res) => {
   }
 })
 
-router.get("/",(req,res) => {
+router.get("/admin",(req,res) => {
     res.render('all-posts-admin',{
       layout:'dashboard',
       loggedIn:req.session.loggedIn,
@@ -73,7 +73,7 @@ router.get("/edit/:id", withAuth, async (req, res) => {
     .then((dbPostData) => {
       if (dbPostData) {
         const post = dbPostData.get({ plain: true });
-
+        console.log(post)
         res.render("edit-post", {
           post,
           loggedIn: req.session.loggedIn,
