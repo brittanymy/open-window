@@ -47,3 +47,6 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 ## Deployed link & Screenshots
 
 https://gentle-shore-37338.herokuapp.com/
+
+!(Techblog Homepage)[public/images/tech-home.png]
+!(Techblog Logged In)[public/images/tech-dash.png]
